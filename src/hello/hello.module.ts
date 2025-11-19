@@ -5,7 +5,7 @@ import { HelloService } from './hello.service';
 @Module({
   controllers: [HelloController],
   providers: [HelloService],
-  imports: [],
-  exports: [],
+  // imports: [],
+  exports: [HelloService],
 })
 export class HelloModule {}
