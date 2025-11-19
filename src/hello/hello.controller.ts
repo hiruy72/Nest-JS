@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { HelloService } from './hello.service';
 
 @Controller('hello')
@@ -9,10 +9,15 @@ export class HelloController {
         return this.helloservice.getHello();
     }
 
-    @Get(':name') 
+    @Get('user/:name') 
 
     getUsername(@Param('name') name: string): string {
         return this.helloservice.getUsername(name)
+    }
+
+    @Get('query')
+    getQuery(@Query('name') name: string): string {
+        return this.helloservice.getUsername(name || 'world');
     }
 
 }
