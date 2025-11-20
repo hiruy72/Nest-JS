@@ -34,4 +34,17 @@ export class PostsService {
 
        return singlePost;
     }
+     create(createdPost: Omit<Post, 'id' | 'createdAt'>): Post {
+        const newPost: Post={
+            id: this.getMaxId(),
+            ...createdPost,
+            createdAt: new Date(),
+        }
+         this.posts.push(newPost);
+        return newPost;
+     }
+      private getMaxId(): number {
+            return this.posts.length> 0 ?
+            Math.max(...this.posts.map(post=> post.id)) +1 : 1
+        }
 }
