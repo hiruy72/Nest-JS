@@ -34,12 +34,9 @@ export class PostsController {
     }
 
     @Delete('post/:id')
+    @HttpCode(HttpStatus.NO_CONTENT)
     remove(@Param('id', ParseIntPipe) id: number): void {
         this.postsservice.remove(id);
     }
-
-
-   
-   
     }
     
