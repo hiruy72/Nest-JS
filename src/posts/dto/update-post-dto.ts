@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsOptional, IsString, MaxLength, MinLength } from "class-validator";
 
-export class CreatePost {
+export class UpdatePost {
     @IsOptional()
     @IsNotEmpty({message: "title is required"})
     @IsString({message: "Title must be a stirng"})
