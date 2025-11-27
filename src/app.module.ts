@@ -8,7 +8,7 @@ import { Post } from './posts/entities/post-entity';
 @Module({
   imports: [
      TypeOrmModule.forRoot({
-      type: 'postgre',
+      type: 'postgres',
       host: 'localhost',
       port: 3306,
       username: 'root',
