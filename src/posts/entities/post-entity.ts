@@ -11,6 +11,10 @@ export class Post {
 
     @Column({type: 'text'})
     content: string;
+
+    @Column()
+
+    autherName: string;
     
     @UpdateDateColumn()
     updatedAt: Date;
