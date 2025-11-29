@@ -12,7 +12,7 @@ export class PostsService {
 
     constructor(
     @InjectRepository(Post)
-    private postserv: Repository<Post>
+    private postserv: Repository<Post>,
     ){}
 
     async findAll(): Promise<Post[]>{
@@ -35,8 +35,7 @@ export class PostsService {
             content: createdPost.content
         })
 
-        return this.postserv
-        .save(newdata)
+        return this.postserv.save(newdata)
 
     
     }
