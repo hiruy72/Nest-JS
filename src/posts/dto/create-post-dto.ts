@@ -15,6 +15,6 @@ export class CreatePost {
     @IsNotEmpty({message: "Auhtor is required"})
     @IsString({message: "Author name must be a stirng"})
     @MinLength(3,{message: "Auhtor Name must be 3 characters long"})
-    authorName: string;
+    autherName: string;
     
 }

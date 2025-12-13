@@ -32,7 +32,8 @@ export class PostsService {
     async create(createdPost: CreatePost): Promise<Post> {
         const newdata = this.postserv.create({
             title: createdPost.title,
-            content: createdPost.content
+            content: createdPost.content,
+            autherName: createdPost.autherName,
         })
 
         return this.postserv.save(newdata)
