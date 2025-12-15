@@ -68,6 +68,27 @@ export class AuthService {
         }
     }
 
+    async refreshToken(refreshToken: string){
+        try {
+            const payload = await this.jwtService.verify(refreshToken,{
+                secret: 'refresh_secret'
+            })
+            const user = await this.userRepository.findOne({
+                where: {id : payload.sub}
+            })
+
+            if (!user){
+                throw new UnauthorizedException('Invalid Token')
+            }
+
+            const accessToken = this.generateAccessToken(user)
+
+            return {accessToken}
+        } catch (error) {
+            throw new UnauthorizedException('Invalid Token')
+        }
+    }
+
     async LoginUser(loginDto: LoginDto){
         const user = await this.userRepository.findOne({
             where: {email: loginDto.email}
@@ -86,13 +107,13 @@ export class AuthService {
 
       
     }
-      private generateToken(user: User){
+    private generateToken(user: User){
             return{
                 accessToken: this.generateAccessToken(user),
                 refreshToken: this.generateRefreshToken(user),
             }
-        }
-       private generateAccessToken(user: User): string {
+    }
+    private generateAccessToken(user: User): string {
           const payload = {
             email :  user.email,
             sub : user.id,
@@ -105,8 +126,20 @@ export class AuthService {
           })
 
 
-       }
-      
+    }
+    private generateRefreshToken(user: User): string {
+          const payload = {
+             sub : user.id,
+
+          }
+          return this.jwtService.sign(payload, {
+            secret : 'refresh_secret',
+            expiresIn: '7d',
+          })
+
+
+    }
+
 
     
 }
