@@ -56,7 +56,7 @@ export class PostsService {
             targetUpdate.content= updatedPost.content
         }
 
-        return this.postserv.save(updatedPost)
+        return this.postserv.save(targetUpdate)
 
 
     }
