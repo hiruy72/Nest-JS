@@ -106,19 +106,7 @@ export class AuthService {
 
 
        }
-       private generateRefreshToken(user: User): string {
-          const payload = {
-             sub : user.id,
-
-          }
-          return this.jwtService.sign(payload, {
-            secret : 'refresh_secret',
-            expiresIn: '7d',
-          })
-
-
-       }
-
+      
 
     
 }
