@@ -16,7 +16,7 @@ export class AuthService {
         private userRepository: Repository<User>,
         private jwtService : JwtService
     ) {}
-
+ 
     async regigisteruser(registerDto: RegisterDto){
         const exist = await this.userRepository.findOne({
             where: {email: registerDto.email}
@@ -83,7 +83,7 @@ export class AuthService {
 
             const accessToken = this.generateAccessToken(user)
 
-            return {accessToken}
+            return { accessToken }
         } catch (error) {
             throw new UnauthorizedException('Invalid Token')
         }
