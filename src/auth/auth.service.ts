@@ -68,6 +68,7 @@ export class AuthService {
         }
     }
 
+
     async refreshToken(refreshToken: string){
         try {
             const payload = await this.jwtService.verify(refreshToken,{
@@ -139,7 +140,17 @@ export class AuthService {
 
 
     }
-
+      async getUserById(userId: number) {
+        const user = await this.userRepository.findOne({
+            where: {id: userId}
+        })
+        if(!user){
+            throw new UnauthorizedException('User not found');
+        }
+        const  {password, ...result} = user;
+        return result;
+    }
+  
 
     
 }
