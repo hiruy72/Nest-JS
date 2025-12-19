@@ -1,3 +1,4 @@
+import { refresh } from 'next/cache';
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from 'src/posts/dto/regiser-dto';
@@ -15,5 +16,9 @@ export class AuthController {
     login(@Body() loginDto: LoginDto){
         return this.authService.LoginUser(loginDto);
 
+    }
+    @Post('refresh')
+    refreshToken(@Body('refreshToken') refreshToken: string){
+        return this.authService.refreshToken(refreshToken);
     }
 }
