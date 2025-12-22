@@ -1,8 +1,10 @@
 import { refresh } from 'next/cache';
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from 'src/posts/dto/regiser-dto';
 import { LoginDto } from 'src/posts/dto/login-dto';
+import { JwtAuthGuard } from './guards/jwt-auth-guard';
+import { CurrentUser } from './decorators/current-user-decoraror';
 
 @Controller('auth')
 export class AuthController {
@@ -21,4 +23,12 @@ export class AuthController {
     refreshToken(@Body('refreshToken') refreshToken: string){
         return this.authService.refreshToken(refreshToken);
     }
+    @UseGuards(JwtAuthGuard)
+    @Get('profile')
+    getProfile(@CurrentUser() user: any){
+
+        return user;
+
+    }
+
 }
