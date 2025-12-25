@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Post } from './entities/post-entity';
 import { CreatePost } from './dto/create-post-dto';
 import { UpdatePost } from './dto/update-post-dto';
+import { User } from 'src/auth/entities/user-entity';
 
 @Injectable()
 export class PostsService {
@@ -16,11 +17,16 @@ export class PostsService {
     ){}
 
     async findAll(): Promise<Post[]>{
-        return this.postserv.find()
+        return this.postserv.find({
+            relations: ['autherName']
+        })
     }
 
     async findById(id:number): Promise<Post>  {
-       const singlePost=  await this.postserv.findOneBy({id})
+       const singlePost=  await this.postserv.findOne({
+        where: {id},
+        relations: ['autherName']
+       })
 
        if (!singlePost){
         throw new NotFoundException(`Post with ${id}  not found`);
@@ -29,11 +35,11 @@ export class PostsService {
        return singlePost;
     }
     
-    async create(createdPost: CreatePost): Promise<Post> {
+    async create(createdPost: CreatePost, autherName: User): Promise<Post> {
         const newdata = this.postserv.create({
             title: createdPost.title,
             content: createdPost.content,
-            autherName: createdPost.autherName,
+            autherName
         })
 
         return this.postserv.save(newdata)
