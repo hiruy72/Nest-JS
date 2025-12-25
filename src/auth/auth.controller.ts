@@ -34,7 +34,7 @@ export class AuthController {
     @Roles(UserRole.ADMIN)
     @UseGuards(JwtAuthGuard, RolesGuard)
     createAdmin(@Body() registerDto: RegisterDto){
-        return this.authService.regigisteruser(registerDto, 'UserRole.ADMIN');
+        return this.authService.regigisteruser(registerDto);
     }
 
 }
